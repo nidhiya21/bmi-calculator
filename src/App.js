@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import Bmilist from "./components/Bmilist";
+import Bmiscore from "./components/Bmiscore";
+import Form from "./components/Form";
 
 function App() {
+  const [age, setage] = useState("");
+  const [bmiType, setbmiType] = useState("");
+  const onFormSub = (w, h) => {
+    let b = calbmi(w, h);
+    setage(b);
+    console.log(w, h);
+  };
+  const calbmi = (w, h) => {
+    return ((w / h) * h).toFixed(2);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="container">
+        <div className="row justify-content center mt-5 mx-2">
+          <Form getData={onFormSub} />
+        </div>
+        <Bmiscore ageval={age} bmiType={bmiType} />
+        <Bmilist />
+      </div>
+    </>
   );
 }
 
